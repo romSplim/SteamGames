@@ -9,9 +9,11 @@ import UIKit
 
 final class NetworkService {
     
+    //MARK: - Properties
     private var session: URLSession
     private var decoder: JSONDecoder
     
+    //MARK: - Init
     init(session: URLSession = URLSession.shared,
          decoder: JSONDecoder = JSONDecoder()) {
         
@@ -19,6 +21,7 @@ final class NetworkService {
         self.decoder = decoder
     }
     
+    //MARK: - Methods
     func getAllApps(completion: @escaping (Result<[App], NetworkError>) -> Void) {
         guard let url = APIManager.getAllApps.url else {
             completion(.failure(.invalidURL))
@@ -44,10 +47,8 @@ final class NetworkService {
             completion(.failure(.invalidURL))
             return
         }
-        print(url)
         session.dataTask(with: url) { data, response, error in
             if let data {
-                print("DATA EXIST")
                 do {
                     let result = try self.decoder.decode(NewsResponse.self,
                                                          from: data)
@@ -60,22 +61,4 @@ final class NetworkService {
             }
         }.resume()
     }
-    
-    
-    
-//    func getAllAppsAsync() async throws -> AppsResponse {
-//        guard let url = URL(string: "https://api.steampowered.com/ISteamApps/GetAppList/v2/") else {
-//            throw NetworkError.invalidURL
-//        }
-//
-//        let (data, response) = try await session.data(from: url)
-//
-//        if let response = response as? HTTPURLResponse {
-//            print(response.statusCode)
-//        }
-//
-//        let result = try decoder.decode(AppsResponse.self, from: data)
-//
-//        return result
-//    }
 }

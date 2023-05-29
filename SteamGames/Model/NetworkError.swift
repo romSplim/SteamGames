@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: String, Error {
     case invalidURL
     case cannotDecode
     
     var message: String {
         switch self {
         case .invalidURL:
-            return ""
+            return self.rawValue
         case .cannotDecode:
-            return ""
+            return self.rawValue
         }
     }
 }

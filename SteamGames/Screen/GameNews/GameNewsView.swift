@@ -11,6 +11,10 @@ protocol GameNewsViewProtocol: AnyObject {
     func reloadTableView()
 }
 
+fileprivate enum Constant {
+    static let screenTitle = "Новости"
+}
+
 final class GameNewsView: UIViewController {
 
     var presenter: GameNewsPresenter?
@@ -29,10 +33,11 @@ final class GameNewsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
+        title = Constant.screenTitle
         view.backgroundColor = Color.lightGray
         setupSubviews()
         presenter?.getGameNews()
-        
     }
     
     //MARK: - Private methods
@@ -51,7 +56,7 @@ final class GameNewsView: UIViewController {
 //MARK: - UITableView dataSource
 extension GameNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.getAppNewsCount() ?? 10
+        return presenter?.getAppNewsCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,7 +76,8 @@ extension GameNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
+        let article = presenter?.getArticleForApp(from: indexPath)
+        presenter?.showDetailArticle(for: article)
     }
 }
 

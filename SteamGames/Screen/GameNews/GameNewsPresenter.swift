@@ -14,8 +14,8 @@ final class GameNewsPresenter {
     private var networkService: NetworkService
     private var router: Router
     
-    var app: App
-    var appNews: Appnews?
+    private var app: App
+    private var appNews: Appnews?
     
     //MARK: - Init
     init(app: App,
@@ -39,10 +39,10 @@ final class GameNewsPresenter {
     }
     
     func getGameNews() {
-        networkService.getAppNews(with: app.appID) { result in
+        networkService.getAppNews(with: app.appID) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let news):
-                print(news)
                 self.appNews = news
                 DispatchQueue.main.async {
                     self.view?.reloadTableView()
@@ -53,7 +53,8 @@ final class GameNewsPresenter {
         }
     }
     
-    
-    
-    
+    func showDetailArticle(for article: NewsItem?) {
+        guard let article else { return }
+        router.pushDetailArticleView(with: article)
+    }
 }

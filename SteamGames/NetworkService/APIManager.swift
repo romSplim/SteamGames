@@ -11,7 +11,7 @@ enum APIManager {
     case getAllApps
     case getNewsForApp(appID: Int)
     
-    //MARK: - Private properties
+    //MARK: - Properties
     private var baseUrl: String {
         return "https://api.steampowered.com"
     }

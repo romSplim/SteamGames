@@ -30,12 +30,20 @@ final class Router {
         navigationController.viewControllers = [initialController]
     }
     
-    func pushCurrencyPairsView(with model: App) {
+    func pushGameNewsView(with model: App) {
         guard
             let navigationController,
             let gameNewsController = builder?.buildGameNewsView(with: model, router: self) else { return }
         
         navigationController.pushViewController(gameNewsController, animated: true)
+    }
+    
+    func pushDetailArticleView(with model: NewsItem) {
+        guard
+            let navigationController,
+            let detailArticleController = builder?.buildDetailArticleView(with: model, router: self) else { return }
+        
+        navigationController.pushViewController(detailArticleController, animated: true)
     }
 }
 

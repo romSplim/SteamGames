@@ -26,4 +26,11 @@ final class ModuleBuilder {
         view.presenter = presenter
         return view
     }
+    
+    func buildDetailArticleView(with article: NewsItem, router: Router) -> UIViewController {
+        let view = DetailArticleView()
+        let presenter = DetailArticlePresenter(article: article, view: view, router: router)
+        view.presenter = presenter
+        return view
+    }
 }

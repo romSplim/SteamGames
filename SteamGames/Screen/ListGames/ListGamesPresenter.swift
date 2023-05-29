@@ -10,11 +10,11 @@ import UIKit
 final class ListGamesPresenter {
     
     //MARK: - Properties
-    weak var view: ListGamesControllerProtocol?
+    private weak var view: ListGamesControllerProtocol?
     private var router: Router
-    var networkService: NetworkService
-    var apps: [App]?
-    var filteredApps: [App]?
+    private var networkService: NetworkService
+    private var apps: [App]?
+    private var searchingResult: [App]?
     private let filteringQueue = DispatchQueue(label: "filteringQueue")
     
     //MARK: - Init
@@ -28,29 +28,31 @@ final class ListGamesPresenter {
     }
     
     //MARK: - Methods
-    func getAppsCount() -> Int {
+    func getAppsCount(isFiltering: Bool) -> Int {
+        if isFiltering {
+            return searchingResult?.count ?? 0
+        }
         return apps?.count ?? 0
     }
     
-    func getFilteredAppsCount() -> Int {
-        return filteredApps?.count ?? 0
-    }
-    
-    func getAppForRow(from indexPath: IndexPath) -> App? {
+    func getAppForRow(from indexPath: IndexPath,
+                      isFiltering: Bool) -> App? {
+        if isFiltering {
+            return searchingResult?[indexPath.row]
+        }
         return apps?[indexPath.row]
     }
     
-    func getFilteredAppForRow(from indexPath: IndexPath) -> App? {
-        return filteredApps?[indexPath.row]
-    }
-    
     func getAppList() {
-        networkService.getAllApps { result in
+        networkService.getAllApps { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let apps):
-                self.apps = apps
-                DispatchQueue.main.async {
-                    self.view?.reloadTableView()
+                self.removeEmptyApps(from: apps) { filteredApps in
+                    self.apps = filteredApps
+                    DispatchQueue.main.async {
+                        self.view?.reloadTableView()
+                    }
                 }
             case .failure(let failure):
                 print(failure)
@@ -60,7 +62,7 @@ final class ListGamesPresenter {
     
     func searchApp(with name: String) {
         filteringQueue.async {
-            self.filteredApps = self.apps?.filter { app in app.name.lowercased().contains(name.lowercased())
+            self.searchingResult = self.apps?.filter { app in app.name.lowercased().contains(name.lowercased())
             }
             
             DispatchQueue.main.async {
@@ -69,9 +71,16 @@ final class ListGamesPresenter {
         }
     }
     
-    func showNewsForApp(with model: App?) {
-        guard let model else { return }
-        router.pushCurrencyPairsView(with: model)
+    func removeEmptyApps(from appsData: [App],
+                         completion: @escaping ([App]) -> Void) {
+        filteringQueue.async {
+            let filteredData = appsData.filter { !$0.name.isEmpty }
+            completion(filteredData)
+        }
     }
-
+    
+    func showNews(for model: App?) {
+        guard let model else { return }
+        router.pushGameNewsView(with: model)
+    }
 }
