@@ -11,6 +11,11 @@
 		957BC8792A23D17E0079B43B /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8782A23D17E0079B43B /* UITableViewCell+Extension.swift */; };
 		957BC87C2A2481DB0079B43B /* GameNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC87B2A2481DB0079B43B /* GameNewsView.swift */; };
 		957BC87E2A2481E60079B43B /* GameNewsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC87D2A2481E60079B43B /* GameNewsPresenter.swift */; };
+		957BC8802A2486C50079B43B /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC87F2A2486C50079B43B /* APIManager.swift */; };
+		957BC8822A248E4A0079B43B /* NewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8812A248E4A0079B43B /* NewsResponse.swift */; };
+		957BC8852A24A1250079B43B /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8842A24A1250079B43B /* ArticleCell.swift */; };
+		957BC8882A24ACD80079B43B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8872A24ACD80079B43B /* Color.swift */; };
+		957BC88A2A24ACF70079B43B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8892A24ACF70079B43B /* UIColor+Extension.swift */; };
 		95D5A6162A21EFBB006ACBC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6152A21EFBB006ACBC8 /* AppDelegate.swift */; };
 		95D5A6182A21EFBB006ACBC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6172A21EFBB006ACBC8 /* SceneDelegate.swift */; };
 		95D5A61A2A21EFBB006ACBC8 /* ListGamesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6192A21EFBB006ACBC8 /* ListGamesController.swift */; };
@@ -29,6 +34,11 @@
 		957BC8782A23D17E0079B43B /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		957BC87B2A2481DB0079B43B /* GameNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNewsView.swift; sourceTree = "<group>"; };
 		957BC87D2A2481E60079B43B /* GameNewsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNewsPresenter.swift; sourceTree = "<group>"; };
+		957BC87F2A2486C50079B43B /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		957BC8812A248E4A0079B43B /* NewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponse.swift; sourceTree = "<group>"; };
+		957BC8842A24A1250079B43B /* ArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		957BC8872A24ACD80079B43B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		957BC8892A24ACF70079B43B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		95D5A6122A21EFBB006ACBC8 /* SteamGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D5A6152A21EFBB006ACBC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95D5A6172A21EFBB006ACBC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,10 +86,34 @@
 		957BC87A2A2481600079B43B /* GameNews */ = {
 			isa = PBXGroup;
 			children = (
+				957BC8832A24A0FE0079B43B /* View */,
 				957BC87B2A2481DB0079B43B /* GameNewsView.swift */,
 				957BC87D2A2481E60079B43B /* GameNewsPresenter.swift */,
 			);
 			path = GameNews;
+			sourceTree = "<group>";
+		};
+		957BC8832A24A0FE0079B43B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				957BC8842A24A1250079B43B /* ArticleCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		957BC8862A24ACCB0079B43B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				957BC8872A24ACD80079B43B /* Color.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		957BC88C2A24B7050079B43B /* Article */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Article;
 			sourceTree = "<group>";
 		};
 		95D5A6092A21EFBB006ACBC8 = {
@@ -103,6 +137,7 @@
 			children = (
 				95D5A6292A21F770006ACBC8 /* App */,
 				95D5A62D2A21F7AC006ACBC8 /* Builder */,
+				957BC8862A24ACCB0079B43B /* Constants */,
 				95D5A62C2A21F7A0006ACBC8 /* Extension */,
 				95D5A6382A22072E006ACBC8 /* Model */,
 				95D5A62F2A21F7BB006ACBC8 /* NetworkService */,
@@ -135,6 +170,7 @@
 		95D5A62B2A21F793006ACBC8 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				957BC88C2A24B7050079B43B /* Article */,
 				957BC87A2A2481600079B43B /* GameNews */,
 				957BC8742A23CBE90079B43B /* ListGames */,
 			);
@@ -145,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				957BC8782A23D17E0079B43B /* UITableViewCell+Extension.swift */,
+				957BC8892A24ACF70079B43B /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -169,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				95D5A6362A2206DC006ACBC8 /* NetworkService.swift */,
+				957BC87F2A2486C50079B43B /* APIManager.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -178,6 +216,7 @@
 			children = (
 				95D5A6392A220740006ACBC8 /* AppsResponse.swift */,
 				95D5A63B2A220B20006ACBC8 /* NetworkError.swift */,
+				957BC8812A248E4A0079B43B /* NewsResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,16 +291,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				957BC8852A24A1250079B43B /* ArticleCell.swift in Sources */,
 				95D5A6352A22064F006ACBC8 /* ListGamesPresenter.swift in Sources */,
 				95D5A61A2A21EFBB006ACBC8 /* ListGamesController.swift in Sources */,
+				957BC88A2A24ACF70079B43B /* UIColor+Extension.swift in Sources */,
 				95D5A63A2A220740006ACBC8 /* AppsResponse.swift in Sources */,
+				957BC8882A24ACD80079B43B /* Color.swift in Sources */,
 				957BC87C2A2481DB0079B43B /* GameNewsView.swift in Sources */,
 				95D5A6162A21EFBB006ACBC8 /* AppDelegate.swift in Sources */,
 				95D5A6332A21F827006ACBC8 /* Router.swift in Sources */,
+				957BC8802A2486C50079B43B /* APIManager.swift in Sources */,
 				957BC8772A23CC360079B43B /* AppCell.swift in Sources */,
 				957BC8792A23D17E0079B43B /* UITableViewCell+Extension.swift in Sources */,
 				95D5A6182A21EFBB006ACBC8 /* SceneDelegate.swift in Sources */,
 				957BC87E2A2481E60079B43B /* GameNewsPresenter.swift in Sources */,
+				957BC8822A248E4A0079B43B /* NewsResponse.swift in Sources */,
 				95D5A63C2A220B20006ACBC8 /* NetworkError.swift in Sources */,
 				95D5A6312A21F80A006ACBC8 /* ModuleBuilder.swift in Sources */,
 				95D5A6372A2206DC006ACBC8 /* NetworkService.swift in Sources */,

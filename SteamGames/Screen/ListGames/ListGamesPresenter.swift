@@ -7,10 +7,11 @@
 
 import UIKit
 
-class ListGamesPresenter {
+final class ListGamesPresenter {
     
     //MARK: - Properties
     weak var view: ListGamesControllerProtocol?
+    private var router: Router
     var networkService: NetworkService
     var apps: [App]?
     var filteredApps: [App]?
@@ -18,10 +19,12 @@ class ListGamesPresenter {
     
     //MARK: - Init
     init(view: ListGamesControllerProtocol?,
-         networkService: NetworkService) {
+         networkService: NetworkService,
+         router: Router) {
         
         self.view = view
         self.networkService = networkService
+        self.router = router
     }
     
     //MARK: - Methods
@@ -66,12 +69,9 @@ class ListGamesPresenter {
         }
     }
     
-    
-    
-//    func getAppListAsync() {
-//        Task {
-//            apps = try await networkService.getAllAppsAsync()
-//        }
-//    }
-    
+    func showNewsForApp(with model: App?) {
+        guard let model else { return }
+        router.pushCurrencyPairsView(with: model)
+    }
+
 }

@@ -7,16 +7,21 @@
 
 import UIKit
 
-class Router {
+final class Router {
     
+    //MARK: - Private properties
     private var builder: ModuleBuilder?
     private var navigationController: UINavigationController?
     
-    init(navigationController: UINavigationController, builder: ModuleBuilder) {
+    //MARK: - Init
+    init(navigationController: UINavigationController,
+         builder: ModuleBuilder) {
+        
         self.navigationController = navigationController
         self.builder = builder
     }
 
+    //MARK: - Methods
     func initialController() {
         guard
             let navigationController = navigationController,
@@ -25,11 +30,12 @@ class Router {
         navigationController.viewControllers = [initialController]
     }
     
-//    func pushCurrencyPairsView(for picker: PickerType, with data: [String], delegate: ListPairsPresenterDelegate) {
-//        guard let navigationController,
-//              let currencyController = builder?.buildCurrencyPairsView(for: picker, with: data, router: self, delegate: delegate) else { return }
-//        
-//        navigationController.pushViewController(currencyController, animated: true)
-//    }
+    func pushCurrencyPairsView(with model: App) {
+        guard
+            let navigationController,
+            let gameNewsController = builder?.buildGameNewsView(with: model, router: self) else { return }
+        
+        navigationController.pushViewController(gameNewsController, animated: true)
+    }
 }
 

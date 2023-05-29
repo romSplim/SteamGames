@@ -11,7 +11,7 @@ protocol ListGamesControllerProtocol: AnyObject {
     func reloadTableView()
 }
 
-class ListGamesController: UIViewController {
+final class ListGamesController: UIViewController {
     
     //MARK: - Properties
     var presenter: ListGamesPresenter?
@@ -106,6 +106,15 @@ extension ListGamesController: UITableViewDataSource {
 extension ListGamesController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let app: App?
+        if isFiltering {
+            app = presenter?.getFilteredAppForRow(from: indexPath)
+        } else {
+            app = presenter?.getAppForRow(from: indexPath)
+        }
+        
+        presenter?.showNewsForApp(with: app)
     }
 }
 

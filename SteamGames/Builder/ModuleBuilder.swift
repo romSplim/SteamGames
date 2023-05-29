@@ -7,23 +7,23 @@
 
 import UIKit
 
-class ModuleBuilder {
+final class ModuleBuilder {
     
     func buildListAppsModule(router: Router) -> UIViewController {
         let view = ListGamesController()
         let networkService = NetworkService()
         let presenter = ListGamesPresenter(view: view,
-                                           networkService: networkService)
+                                           networkService: networkService, router: router)
         view.presenter = presenter
         return view
     }
-//    
-//    func buildCurrencyPairsView(for picker: PickerType, with data: [String], router: Router, delegate: ListPairsPresenterDelegate) -> UIViewController {
-//        let view = ListPairsView()
-//        let networkService = NetworkService()
-//        let presenter = ListPairsPresenter(for: picker, data: data, view: view, router: router, networkService: networkService)
-//        presenter.delegate = delegate
-//        view.presenter = presenter
-//        return view
-//    }
+    
+    func buildGameNewsView(with model: App, router: Router) -> UIViewController {
+        let view = GameNewsView()
+        let networkService = NetworkService()
+        let presenter = GameNewsPresenter(app: model, view: view,
+                                          networkService: networkService, router: router)
+        view.presenter = presenter
+        return view
+    }
 }

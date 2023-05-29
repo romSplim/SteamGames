@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NetworkService {
+final class NetworkService {
     
     private var session: URLSession
     private var decoder: JSONDecoder
@@ -20,7 +20,7 @@ class NetworkService {
     }
     
     func getAllApps(completion: @escaping (Result<[App], NetworkError>) -> Void) {
-        guard let url = URL(string: "https://api.steampowered.com/ISteamApps/GetAppList/v2/") else {
+        guard let url = APIManager.getAllApps.url else {
             completion(.failure(.invalidURL))
             return
         }
@@ -39,19 +39,43 @@ class NetworkService {
         }.resume()
     }
     
-    func getAllAppsAsync() async throws -> AppsResponse {
-        guard let url = URL(string: "https://api.steampowered.com/ISteamApps/GetAppList/v2/") else {
-            throw NetworkError.invalidURL
+    func getAppNews(with appID: Int, completion: @escaping (Result<Appnews, NetworkError>) -> Void) {
+        guard let url = APIManager.getNewsForApp(appID: appID).url else {
+            completion(.failure(.invalidURL))
+            return
         }
-        
-        let (data, response) = try await session.data(from: url)
-        
-        if let response = response as? HTTPURLResponse {
-            print(response.statusCode)
-        }
-        
-        let result = try decoder.decode(AppsResponse.self, from: data)
-        
-        return result
+        print(url)
+        session.dataTask(with: url) { data, response, error in
+            if let data {
+                print("DATA EXIST")
+                do {
+                    let result = try self.decoder.decode(NewsResponse.self,
+                                                         from: data)
+                    let apps = result.appnews
+                    completion(.success(apps))
+                } catch let error {
+                    print(error)
+                    completion(.failure(.cannotDecode))
+                }
+            }
+        }.resume()
     }
+    
+    
+    
+//    func getAllAppsAsync() async throws -> AppsResponse {
+//        guard let url = URL(string: "https://api.steampowered.com/ISteamApps/GetAppList/v2/") else {
+//            throw NetworkError.invalidURL
+//        }
+//
+//        let (data, response) = try await session.data(from: url)
+//
+//        if let response = response as? HTTPURLResponse {
+//            print(response.statusCode)
+//        }
+//
+//        let result = try decoder.decode(AppsResponse.self, from: data)
+//
+//        return result
+//    }
 }
