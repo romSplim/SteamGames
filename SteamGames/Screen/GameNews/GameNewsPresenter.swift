@@ -31,25 +31,34 @@ final class GameNewsPresenter {
     
     //MARK: - Methods
     func getAppNewsCount() -> Int {
-        return appNews?.count ?? 0
+        return appNews?.newsItems.count ?? 0
     }
     
     func getArticleForApp(from indexPath: IndexPath) -> NewsItem? {
         return appNews?.newsItems[indexPath.row]
     }
     
-    func getGameNews() {
+    func getGameNews(requestType: RequestType) {
         networkService.getAppNews(with: app.appID) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let news):
                 self.appNews = news
                 DispatchQueue.main.async {
-                    self.view?.reloadTableView()
+                    self.updateUI(for: requestType)
                 }
             case .failure(let failure):
                 print(failure.message)
             }
+        }
+    }
+    
+    private func updateUI(for type: RequestType) {
+        switch type {
+        case .initialLoad:
+            self.view?.reloadTableView()
+        case .refreshLoad:
+            self.view?.hidePulledRefreshIndicator()
         }
     }
     

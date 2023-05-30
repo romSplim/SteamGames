@@ -43,7 +43,7 @@ final class ListGamesPresenter {
         return apps?[indexPath.row]
     }
     
-    func getAppList() {
+    func getAppList(requestType: RequestType) {
         networkService.getAllApps { [weak self] result in
             guard let self else { return }
             switch result {
@@ -51,12 +51,21 @@ final class ListGamesPresenter {
                 self.removeEmptyApps(from: apps) { filteredApps in
                     self.apps = filteredApps
                     DispatchQueue.main.async {
-                        self.view?.reloadTableView()
+                        self.updateUI(for: requestType)
                     }
                 }
             case .failure(let failure):
                 print(failure)
             }
+        }
+    }
+    
+    private func updateUI(for type: RequestType) {
+        switch type {
+        case .initialLoad:
+            self.view?.reloadTableView()
+        case .refreshLoad:
+            self.view?.hidePulledRefreshIndicator()
         }
     }
     
@@ -84,3 +93,4 @@ final class ListGamesPresenter {
         router.pushGameNewsView(with: model)
     }
 }
+

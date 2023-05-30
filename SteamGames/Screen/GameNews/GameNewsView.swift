@@ -9,6 +9,7 @@ import UIKit
 
 protocol GameNewsViewProtocol: AnyObject {
     func reloadTableView()
+    func hidePulledRefreshIndicator()
 }
 
 fileprivate enum Constant {
@@ -17,6 +18,7 @@ fileprivate enum Constant {
 
 final class GameNewsView: UIViewController {
 
+    //MARK: - Properties
     var presenter: GameNewsPresenter?
     
     private lazy var tableView: UITableView = {
@@ -31,16 +33,34 @@ final class GameNewsView: UIViewController {
         return tableView
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.largeTitleDisplayMode = .never
-        title = Constant.screenTitle
-        view.backgroundColor = Color.lightGray
+        setupView()
         setupSubviews()
-        presenter?.getGameNews()
+        configureRefreshControl()
+        presenter?.getGameNews(requestType: .initialLoad)
     }
     
     //MARK: - Private methods
+    private func setupView() {
+        navigationItem.largeTitleDisplayMode = .never
+        title = Constant.screenTitle
+        view.backgroundColor = Color.lightGray
+    }
+    
+    private func configureRefreshControl() {
+       tableView.refreshControl = UIRefreshControl()
+       tableView.refreshControl?.addTarget(self, action:
+                                          #selector(handleRefreshControl),
+                                          for: .valueChanged)
+    }
+    
+    @objc
+    private func handleRefreshControl(_sender: UIRefreshControl) {
+        presenter?.getGameNews(requestType: .refreshLoad)
+    }
+    
     private func setupSubviews() {
         view.addSubview(tableView)
         
@@ -55,25 +75,29 @@ final class GameNewsView: UIViewController {
 
 //MARK: - UITableView dataSource
 extension GameNewsView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         return presenter?.getAppNewsCount() ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ArticleCell.identifier, for: indexPath) as? ArticleCell else {
             return UITableViewCell()
         }
         
         let newsItem = presenter?.getArticleForApp(from: indexPath)
         cell.configure(with: newsItem)
-        
         return cell
     }
 }
 
 //MARK: - UITableView delegate
 extension GameNewsView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
         let article = presenter?.getArticleForApp(from: indexPath)
@@ -83,6 +107,11 @@ extension GameNewsView: UITableViewDelegate {
 
 //MARK: - GameNewsPresenter delegate
 extension GameNewsView: GameNewsViewProtocol {
+    
+    func hidePulledRefreshIndicator() {
+        tableView.refreshControl?.endRefreshing()
+    }
+    
     func reloadTableView() {
         tableView.reloadData()
     }

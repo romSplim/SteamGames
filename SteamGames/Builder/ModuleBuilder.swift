@@ -9,6 +9,7 @@ import UIKit
 
 final class ModuleBuilder {
     
+    //MARK: - Methods
     func buildListAppsModule(router: Router) -> UIViewController {
         let view = ListGamesController()
         let networkService = NetworkService()
@@ -29,7 +30,9 @@ final class ModuleBuilder {
     
     func buildDetailArticleView(with article: NewsItem, router: Router) -> UIViewController {
         let view = DetailArticleView()
-        let presenter = DetailArticlePresenter(article: article, view: view, router: router)
+        let presenter = DetailArticlePresenter(article: article,
+                                               view: view,
+                                               router: router)
         view.presenter = presenter
         return view
     }

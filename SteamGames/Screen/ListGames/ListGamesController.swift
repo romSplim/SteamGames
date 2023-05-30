@@ -9,11 +9,12 @@ import UIKit
 
 protocol ListGamesControllerProtocol: AnyObject {
     func reloadTableView()
+    func hidePulledRefreshIndicator()
 }
 
 fileprivate enum Constant {
     static let screenTitle = "Игры"
-    static let searchPlaceholder = "Type something here to search"
+    static let searchPlaceholder = "Введите название игры"
 }
 
 final class ListGamesController: UIViewController {
@@ -25,6 +26,8 @@ final class ListGamesController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+//        tableView.refreshControl = UIRefreshControl()
+//        tableView.refreshControl?.addTarget(self, action: #selector(didPulledRefreshControll), for: .valueChanged)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,15 +46,32 @@ final class ListGamesController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         setupSubviews()
         setupSearchBar()
-        presenter?.getAppList()
+        configureRefreshControl()
+        presenter?.getAppList(requestType: .initialLoad)
+    }
+    
+    //MARK: - Private methods
+    private func setupView() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
         title = Constant.screenTitle
     }
     
-    //MARK: - Private methods
+    private func configureRefreshControl() {
+       tableView.refreshControl = UIRefreshControl()
+       tableView.refreshControl?.addTarget(self, action:
+                                          #selector(handleRefreshControl),
+                                          for: .valueChanged)
+    }
+    
+    @objc
+    private func handleRefreshControl(_sender: UIRefreshControl) {
+        presenter?.getAppList(requestType: .refreshLoad)
+    }
+    
     private func setupSearchBar() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -74,33 +94,40 @@ final class ListGamesController: UIViewController {
 //MARK: - UISearchController delegate
 extension ListGamesController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else { return }
+        guard let searchText = searchController.searchBar.text else {
+            return
+        }
         presenter?.searchApp(with: searchText)
     }
 }
 
 //MARK: - UITableView dataSource
 extension ListGamesController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        
         return presenter?.getAppsCount(isFiltering: isFiltering) ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AppCell.identifier, for: indexPath) as? AppCell else {
             return UITableViewCell()
         }
 
         let app = presenter?.getAppForRow(from: indexPath,
-                                          isFiltering: isFiltering)
+                                        isFiltering: isFiltering)
         cell.configure(with: app)
-        
         return cell
     }
 }
 
 //MARK: - UITableView delegate
 extension ListGamesController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
         let app = presenter?.getAppForRow(from: indexPath,
@@ -111,6 +138,11 @@ extension ListGamesController: UITableViewDelegate {
 
 //MARK: - ListGamesPresenter delegate
 extension ListGamesController: ListGamesControllerProtocol {
+    
+    func hidePulledRefreshIndicator() {
+        self.tableView.refreshControl?.endRefreshing()
+    }
+    
     func reloadTableView() {
         self.tableView.reloadData()
     }

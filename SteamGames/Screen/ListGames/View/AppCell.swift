@@ -44,8 +44,10 @@ class AppCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             appNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            appNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
-            appNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 15)
+            appNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            appNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            appNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            appNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
     }
 }

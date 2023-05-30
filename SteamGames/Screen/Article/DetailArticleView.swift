@@ -10,7 +10,8 @@ import UIKit
 protocol DetailArticleViewProtocol: AnyObject {}
 
 final class DetailArticleView: UIViewController {
-
+    
+    //MARK: - Properties
     var presenter: DetailArticlePresenter?
     
     private lazy var tableView: UITableView = {
@@ -25,13 +26,14 @@ final class DetailArticleView: UIViewController {
         return tableView
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = tableView.backgroundColor
         setupSubviews()
-        
     }
 
+    //MARK: - Private methods
     private func setupSubviews() {
         view.addSubview(tableView)
         let safeArea = view.safeAreaLayoutGuide
@@ -45,12 +47,17 @@ final class DetailArticleView: UIViewController {
     }
 }
 
+//MARK: - UITableView dataSource
 extension DetailArticleView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        
         return RowType.allCases.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let rowType = RowType(rawValue: indexPath.row)
         let newsItem = presenter?.getArticle()
         
@@ -66,15 +73,14 @@ extension DetailArticleView: UITableViewDataSource {
         case .none:
             break
         }
-        
         return UITableViewCell()
     }
 }
 
-extension DetailArticleView: DetailArticleViewProtocol {
-    
-}
+//MARK: - DetailArticlePresenter delegate
+extension DetailArticleView: DetailArticleViewProtocol {}
 
+//MARK: - RowType Enum
 extension DetailArticleView {
     enum RowType: Int, CaseIterable {
         case title

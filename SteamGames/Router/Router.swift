@@ -11,7 +11,7 @@ final class Router {
     
     //MARK: - Private properties
     private var builder: ModuleBuilder?
-    private var navigationController: UINavigationController?
+    private weak var navigationController: UINavigationController?
     
     //MARK: - Init
     init(navigationController: UINavigationController,
