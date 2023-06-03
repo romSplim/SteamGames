@@ -61,4 +61,46 @@ final class NetworkService {
             }
         }.resume()
     }
+    
+//    func getAllAppsPagination(with appID: Int, completion: @escaping (Result<Appnews, NetworkError>) -> Void) {
+//        guard let url = APIManager. else {
+//            completion(.failure(.invalidURL))
+//            return
+//        }
+//        session.dataTask(with: url) { data, response, error in
+//            if let data {
+//                do {
+//                    let result = try self.decoder.decode(NewsResponse.self,
+//                                                         from: data)
+//                    let apps = result.appnews
+//                    completion(.success(apps))
+//                } catch let error {
+//                    print(error)
+//                    completion(.failure(.cannotDecode))
+//                }
+//            }
+//        }.resume()
+//    }
+    
+//    func getAppType(with appID: Int, completion: @escaping (Result<DataClass, NetworkError>) -> Void) {
+//        guard let url = APIManager.getAppType(appID: appID).url else {
+//            completion(.failure(.invalidURL))
+//            return
+//        }
+//
+//        print(url)
+//        session.dataTask(with: url) { data, response, error in
+//            if let data {
+//                do {
+//                    let result = try self.decoder.decode(AppTypeResponse.self,
+//                                                         from: data)
+//                    let appType = result.appData.data
+//                    completion(.success(appType))
+//                } catch let error {
+//                    print(error)
+//                    completion(.failure(.cannotDecode))
+//                }
+//            }
+//        }.resume()
+//    }
 }

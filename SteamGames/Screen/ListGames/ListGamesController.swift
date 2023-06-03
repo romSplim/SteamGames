@@ -26,8 +26,6 @@ final class ListGamesController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-//        tableView.refreshControl = UIRefreshControl()
-//        tableView.refreshControl?.addTarget(self, action: #selector(didPulledRefreshControll), for: .valueChanged)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

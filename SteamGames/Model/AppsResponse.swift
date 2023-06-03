@@ -26,9 +26,10 @@ struct Apps: Decodable {
 struct App: Decodable {
     let appID: Int
     let name: String
+    var type: String?
     
     enum CodingKeys: String, CodingKey {
         case appID = "appid"
-        case name
+        case name, type
     }
 }

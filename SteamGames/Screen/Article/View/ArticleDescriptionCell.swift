@@ -6,21 +6,22 @@
 //
 
 import UIKit
+import WebKit
 
-class ArticleDescriptionCell: UITableViewCell {
+final class ArticleDescriptionCell: UITableViewCell {
 
-    var articleDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = TestData.description
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        return label
+    var articleDescriptionTextView: UITextView = {
+        let textVIew = UITextView()
+        textVIew.textColor = .red
+        textVIew.translatesAutoresizingMaskIntoConstraints = false
+        textVIew.sizeToFit()
+        textVIew.isScrollEnabled = false
+        return textVIew
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        isUserInteractionEnabled = false
+//        isUserInteractionEnabled = false
         setupSubviews()
     }
     
@@ -30,19 +31,19 @@ class ArticleDescriptionCell: UITableViewCell {
     
     func configure(with title: String?) {
         guard let title else { return }
-        articleDescriptionLabel.text = title
+        print(title)
+        articleDescriptionTextView.attributedText = title.htmlAttributedString(from: title,
+                                        size: 15)
     }
     
     private func setupSubviews() {
-        contentView.addSubview(articleDescriptionLabel)
-        
+        contentView.addSubview(articleDescriptionTextView)
+
         NSLayoutConstraint.activate([
-            articleDescriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            articleDescriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            articleDescriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            articleDescriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            articleDescriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            articleDescriptionTextView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            articleDescriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            articleDescriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
         ])
     }
-
-
 }

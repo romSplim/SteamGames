@@ -10,10 +10,18 @@ import Foundation
 enum APIManager {
     case getAllApps
     case getNewsForApp(appID: Int)
+    case getAppType(appID: Int)
     
     //MARK: - Properties
     private var baseUrl: String {
-        return "https://api.steampowered.com"
+        switch self {
+        case .getAllApps,
+                .getNewsForApp(_):
+            return "https://api.steampowered.com"
+            
+        case .getAppType(_):
+            return "https://store.steampowered.com"
+        }
     }
     
     private var path: String {
@@ -22,6 +30,8 @@ enum APIManager {
             return "/ISteamApps/GetAppList/v2"
         case .getNewsForApp(_):
             return "/ISteamNews/GetNewsForApp/v2/"
+        case .getAppType(_):
+            return "/api/appdetails"
         }
     }
     
@@ -29,9 +39,15 @@ enum APIManager {
         switch self {
         case .getAllApps:
             return []
+            
         case .getNewsForApp(let appID):
             return [
                 URLQueryItem(name: "appid", value: "\(appID)")
+            ]
+            
+        case .getAppType(let appID):
+            return [
+                URLQueryItem(name: "appids", value: "\(appID)")
             ]
         }
     }
