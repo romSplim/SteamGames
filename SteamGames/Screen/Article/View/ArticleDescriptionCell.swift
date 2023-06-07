@@ -21,7 +21,7 @@ final class ArticleDescriptionCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        isUserInteractionEnabled = false
+        isUserInteractionEnabled = false
         setupSubviews()
     }
     
@@ -31,7 +31,6 @@ final class ArticleDescriptionCell: UITableViewCell {
     
     func configure(with title: String?) {
         guard let title else { return }
-        print(title)
         articleDescriptionTextView.attributedText = title.htmlAttributedString(from: title,
                                         size: 15)
     }
