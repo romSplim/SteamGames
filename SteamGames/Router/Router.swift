@@ -30,7 +30,7 @@ final class Router {
         navigationController.viewControllers = [initialController]
     }
     
-    func pushGameNewsView(with model: App) {
+    func pushGameNewsView(with model: AppItem) {
         guard
             let navigationController,
             let gameNewsController = builder?.buildGameNewsView(with: model, router: self) else { return }

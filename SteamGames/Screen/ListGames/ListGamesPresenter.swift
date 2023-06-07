@@ -14,13 +14,8 @@ final class ListGamesPresenter {
     private var router: Router
     private var networkService: NetworkService
     
-    private var apps: [App]?
-    private var searchingResult: [App]? {
-        didSet {
-//            getAppType(for: searchingResult, request: .initialLoad)
-        }
-    }
-    private var appTypes: [AppDTO]?
+    private var appResponse: Response?
+    private var searchingResult: [AppItem]?
     
     private let filteringQueue = DispatchQueue(label: "filteringQueue",
                                                qos: .userInitiated)
@@ -40,74 +35,36 @@ final class ListGamesPresenter {
         if isFiltering {
             return searchingResult?.count ?? 0
         }
-        return apps?.count ?? 0
+        return appResponse?.apps.count ?? 0
     }
     
     func getAppForRow(from indexPath: IndexPath,
-                      isFiltering: Bool) -> App? {
+                      isFiltering: Bool) -> AppItem? {
         if isFiltering {
             return searchingResult?[indexPath.row]
         }
-        return apps?[indexPath.row]
+        return appResponse?.apps[indexPath.row]
     }
     
-    func getAppList(requestType: RequestType) {
-        networkService.getAllApps { [weak self] result in
-            guard let self else { return }
+    func getAppsByCategory(category: AppCategory,
+                           requestType: RequestType) {
+        self.view?.updateContentState(.loading)
+        
+        networkService.getAppByCategory(with: category) { result in
             switch result {
             case .success(let apps):
-                self.removeEmptyApps(from: apps) { filteredApps in
-                    self.apps = filteredApps
-                    DispatchQueue.main.async {
-                        self.updateUI(for: requestType)
-                    }
+                self.appResponse = apps
+                
+                DispatchQueue.main.async {
+                    self.updateUI(for: requestType)
+                    self.view?.updateContentState(.populated)
                 }
+                
             case .failure(let failure):
-                print(failure)
+                print(failure.message)
             }
         }
     }
-    
-    func getAppType(for appIDs: [App]?, request: RequestType) {
-        guard let appIDs else { return }
-        let group = DispatchGroup()
-        var appTypes: [DataClass] = []
-        
-        for app in appIDs {
-            group.enter()
-            networkService.getAppType(with: app.appID) { result in
-                switch result {
-                case .success(let appType):
-                    appTypes.append(appType)
-                case .failure(let failure):
-                    print(failure.message)
-                }
-                group.leave()
-            }
-        }
-        
-        group.notify(queue: filteringQueue) {
-            self.makeModelWithAppType(from: appTypes)
-            DispatchQueue.main.async {
-                self.view?.reloadTableView()
-            }
-        }
-        
-    }
-    
-    private func makeModelWithAppType(from appTypes: [DataClass]) {
-        for (index, value) in appTypes.enumerated() {
-            self.searchingResult?[index].type = value.type
-        }
-    }
-    
-//    private func mapToDTOModel(from appTypes: [DataClass]) -> [AppDTO] {
-//        appTypes.compactMap {
-//            AppDTO(name: $0.name,
-//                   appID: "\($0.steam_appid)",
-//                   type: $0.type)
-//        }
-//    }
     
     private func updateUI(for type: RequestType) {
         switch type {
@@ -120,7 +77,7 @@ final class ListGamesPresenter {
     
     func searchApp(with name: String) {
         filteringQueue.async {
-            self.searchingResult = self.apps?.filter { $0.name.lowercased().contains(name.lowercased())
+            self.searchingResult = self.appResponse?.apps.filter { $0.name.lowercased().contains(name.lowercased())
             }
             
             DispatchQueue.main.async {
@@ -129,15 +86,7 @@ final class ListGamesPresenter {
         }
     }
     
-    func removeEmptyApps(from appsData: [App],
-                         completion: @escaping ([App]) -> Void) {
-        filteringQueue.async {
-            let filteredData = appsData.filter { !$0.name.isEmpty }
-            completion(filteredData)
-        }
-    }
-    
-    func showNews(for model: App?) {
+    func showNews(for model: AppItem?) {
         guard let model else { return }
         router.pushGameNewsView(with: model)
     }

@@ -14,11 +14,11 @@ final class GameNewsPresenter {
     private var networkService: NetworkService
     private var router: Router
     
-    private var app: App
+    private var app: AppItem
     private var appNews: Appnews?
     
     //MARK: - Init
-    init(app: App,
+    init(app: AppItem,
          view: GameNewsViewProtocol?,
          networkService: NetworkService,
          router: Router) {

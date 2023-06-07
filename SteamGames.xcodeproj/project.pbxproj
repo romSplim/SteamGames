@@ -22,9 +22,9 @@
 		957BC8972A24CED30079B43B /* ArticleTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8962A24CED30079B43B /* ArticleTitleCell.swift */; };
 		957BC8992A24CEE30079B43B /* ArticleDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957BC8982A24CEE30079B43B /* ArticleDescriptionCell.swift */; };
 		95A6A3942A25F503009B63DC /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A6A3932A25F503009B63DC /* RequestType.swift */; };
-		95AF46832A2746A500A09E7C /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AF46822A2746A500A09E7C /* UILabel+Extension.swift */; };
-		95AF46852A28C97C00A09E7C /* AppType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AF46842A28C97C00A09E7C /* AppType.swift */; };
-		95AF46872A29E3E500A09E7C /* AppDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AF46862A29E3E500A09E7C /* AppDTO.swift */; };
+		95AF46832A2746A500A09E7C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AF46822A2746A500A09E7C /* String+Extension.swift */; };
+		95AF46892A2B62E100A09E7C /* AppCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AF46882A2B62E100A09E7C /* AppCategory.swift */; };
+		95C971F72A2DADA900C0BB6C /* AppByCategoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C971F62A2DADA900C0BB6C /* AppByCategoryResponse.swift */; };
 		95D5A6162A21EFBB006ACBC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6152A21EFBB006ACBC8 /* AppDelegate.swift */; };
 		95D5A6182A21EFBB006ACBC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6172A21EFBB006ACBC8 /* SceneDelegate.swift */; };
 		95D5A61A2A21EFBB006ACBC8 /* ListGamesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6192A21EFBB006ACBC8 /* ListGamesController.swift */; };
@@ -34,7 +34,6 @@
 		95D5A6332A21F827006ACBC8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6322A21F827006ACBC8 /* Router.swift */; };
 		95D5A6352A22064F006ACBC8 /* ListGamesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6342A22064F006ACBC8 /* ListGamesPresenter.swift */; };
 		95D5A6372A2206DC006ACBC8 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6362A2206DC006ACBC8 /* NetworkService.swift */; };
-		95D5A63A2A220740006ACBC8 /* AppsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A6392A220740006ACBC8 /* AppsResponse.swift */; };
 		95D5A63C2A220B20006ACBC8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D5A63B2A220B20006ACBC8 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,9 +53,9 @@
 		957BC8962A24CED30079B43B /* ArticleTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTitleCell.swift; sourceTree = "<group>"; };
 		957BC8982A24CEE30079B43B /* ArticleDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDescriptionCell.swift; sourceTree = "<group>"; };
 		95A6A3932A25F503009B63DC /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
-		95AF46822A2746A500A09E7C /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
-		95AF46842A28C97C00A09E7C /* AppType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppType.swift; sourceTree = "<group>"; };
-		95AF46862A29E3E500A09E7C /* AppDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDTO.swift; sourceTree = "<group>"; };
+		95AF46822A2746A500A09E7C /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		95AF46882A2B62E100A09E7C /* AppCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCategory.swift; sourceTree = "<group>"; };
+		95C971F62A2DADA900C0BB6C /* AppByCategoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppByCategoryResponse.swift; sourceTree = "<group>"; };
 		95D5A6122A21EFBB006ACBC8 /* SteamGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95D5A6152A21EFBB006ACBC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95D5A6172A21EFBB006ACBC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +67,6 @@
 		95D5A6322A21F827006ACBC8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		95D5A6342A22064F006ACBC8 /* ListGamesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGamesPresenter.swift; sourceTree = "<group>"; };
 		95D5A6362A2206DC006ACBC8 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		95D5A6392A220740006ACBC8 /* AppsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsResponse.swift; sourceTree = "<group>"; };
 		95D5A63B2A220B20006ACBC8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,7 +211,7 @@
 			children = (
 				957BC8782A23D17E0079B43B /* UITableViewCell+Extension.swift */,
 				957BC8892A24ACF70079B43B /* UIColor+Extension.swift */,
-				95AF46822A2746A500A09E7C /* UILabel+Extension.swift */,
+				95AF46822A2746A500A09E7C /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -246,12 +244,11 @@
 		95D5A6382A22072E006ACBC8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				95D5A6392A220740006ACBC8 /* AppsResponse.swift */,
-				95D5A63B2A220B20006ACBC8 /* NetworkError.swift */,
+				95C971F62A2DADA900C0BB6C /* AppByCategoryResponse.swift */,
 				957BC8812A248E4A0079B43B /* NewsResponse.swift */,
+				95D5A63B2A220B20006ACBC8 /* NetworkError.swift */,
 				95A6A3932A25F503009B63DC /* RequestType.swift */,
-				95AF46842A28C97C00A09E7C /* AppType.swift */,
-				95AF46862A29E3E500A09E7C /* AppDTO.swift */,
+				95AF46882A2B62E100A09E7C /* AppCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -332,27 +329,26 @@
 				957BC8972A24CED30079B43B /* ArticleTitleCell.swift in Sources */,
 				957BC8952A24C6360079B43B /* testData.swift in Sources */,
 				957BC88A2A24ACF70079B43B /* UIColor+Extension.swift in Sources */,
-				95D5A63A2A220740006ACBC8 /* AppsResponse.swift in Sources */,
+				95C971F72A2DADA900C0BB6C /* AppByCategoryResponse.swift in Sources */,
 				957BC8882A24ACD80079B43B /* Color.swift in Sources */,
 				957BC8902A24BAD00079B43B /* DetailArticlePresenter.swift in Sources */,
 				957BC87C2A2481DB0079B43B /* GameNewsView.swift in Sources */,
 				95D5A6162A21EFBB006ACBC8 /* AppDelegate.swift in Sources */,
 				95D5A6332A21F827006ACBC8 /* Router.swift in Sources */,
 				957BC8802A2486C50079B43B /* APIManager.swift in Sources */,
-				95AF46852A28C97C00A09E7C /* AppType.swift in Sources */,
 				957BC8772A23CC360079B43B /* AppCell.swift in Sources */,
 				957BC8792A23D17E0079B43B /* UITableViewCell+Extension.swift in Sources */,
 				95D5A6182A21EFBB006ACBC8 /* SceneDelegate.swift in Sources */,
 				957BC87E2A2481E60079B43B /* GameNewsPresenter.swift in Sources */,
-				95AF46832A2746A500A09E7C /* UILabel+Extension.swift in Sources */,
+				95AF46832A2746A500A09E7C /* String+Extension.swift in Sources */,
 				957BC8822A248E4A0079B43B /* NewsResponse.swift in Sources */,
 				957BC88E2A24BAA70079B43B /* DetailArticleView.swift in Sources */,
 				95D5A63C2A220B20006ACBC8 /* NetworkError.swift in Sources */,
 				95D5A6312A21F80A006ACBC8 /* ModuleBuilder.swift in Sources */,
 				95D5A6372A2206DC006ACBC8 /* NetworkService.swift in Sources */,
 				957BC8992A24CEE30079B43B /* ArticleDescriptionCell.swift in Sources */,
-				95AF46872A29E3E500A09E7C /* AppDTO.swift in Sources */,
 				95A6A3942A25F503009B63DC /* RequestType.swift in Sources */,
+				95AF46892A2B62E100A09E7C /* AppCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

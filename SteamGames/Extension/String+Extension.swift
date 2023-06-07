@@ -7,17 +7,6 @@
 
 import UIKit
 
-extension UILabel {
-    func setHTML(html: String) {
-        do {
-            let attributedString: NSAttributedString = try NSAttributedString(data: html.data(using: .utf8)!, options: [.documentType : NSAttributedString.DocumentType.html], documentAttributes: nil)
-            self.attributedText = attributedString
-        } catch {
-            self.text = html
-        }
-    }
-}
-
 extension String {
     func htmlAttributedString(from string: String, size: CGFloat) -> NSAttributedString? {
         

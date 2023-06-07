@@ -19,7 +19,7 @@ final class ModuleBuilder {
         return view
     }
     
-    func buildGameNewsView(with model: App, router: Router) -> UIViewController {
+    func buildGameNewsView(with model: AppItem, router: Router) -> UIViewController {
         let view = GameNewsView()
         let networkService = NetworkService()
         let presenter = GameNewsPresenter(app: model, view: view,
