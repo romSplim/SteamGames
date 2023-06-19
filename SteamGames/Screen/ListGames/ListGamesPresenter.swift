@@ -50,7 +50,7 @@ final class ListGamesPresenter {
                            requestType: RequestType) {
         self.view?.updateContentState(.loading)
         
-        networkService.getAppByCategory(with: category) { result in
+        networkService.getAppByCategoryTest(with: AppForCategoryResource(category: category)) { result in
             switch result {
             case .success(let apps):
                 self.appResponse = apps

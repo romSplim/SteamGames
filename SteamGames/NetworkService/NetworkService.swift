@@ -22,10 +22,10 @@ final class NetworkService {
     }
     
     //MARK: - Methods
-    func getAppNews(with appID: Int,
+    func getAppNews(with resource: APIResource,
                     completion: @escaping (Result<Appnews, NetworkError>) -> Void) {
         
-        guard let url = APIManager.getNewsForApp(appID: appID).url else {
+        guard let url = resource.url else {
             completion(.failure(.invalidURL))
             return
         }
@@ -44,10 +44,10 @@ final class NetworkService {
         }.resume()
     }
     
-    func getAppByCategory(with category: AppCategory,
+    func getAppByCategoryTest(with request: APIResource,
                           completion: @escaping (Result<Response, NetworkError>) -> Void) {
         
-        guard let url = APIManager.getAppsByCategory(category).url else {
+        guard let url = request.url else {
             completion(.failure(.invalidURL))
             return
         }
