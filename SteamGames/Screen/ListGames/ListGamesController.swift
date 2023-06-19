@@ -68,7 +68,7 @@ final class ListGamesController: UIViewController {
         setupSearchBar()
         setupRefreshControl()
         presenter?.getAppsByCategory(category: .games,
-                                     requestType: .initialLoad)
+                                         requestType: .initialLoad)
     }
     
     override func viewDidLayoutSubviews() {
@@ -107,7 +107,8 @@ final class ListGamesController: UIViewController {
     @objc
     private func handleRefreshControl(_ sender: UIRefreshControl) {
         let category = searchingSegments[selectedSearchingIndex]
-        presenter?.getAppsByCategory(category: category, requestType: .refreshLoad)
+        presenter?.getAppsByCategory(category: category,
+                                     requestType: .refreshLoad)
     }
     
     private func setupSearchBar() {

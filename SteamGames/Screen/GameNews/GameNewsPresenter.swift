@@ -39,7 +39,8 @@ final class GameNewsPresenter {
     }
     
     func getGameNews(requestType: RequestType) {
-        networkService.getAppNews(with: app.appID) { [weak self] result in
+        networkService.getAppNews(with: NewsResource(appID: app.appID)) { [weak self] result in
+            
             guard let self else { return }
             switch result {
             case .success(let news):
